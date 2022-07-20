@@ -1,0 +1,13 @@
+.NavBar {
+    border:1px solid white;
+}
+.NavContainer *{
+    color:wheat !important;
+}
+
+.NavButtons *{
+    margin:0.5rem !important;
+}
+.NavButtons * :hover{
+    cursor: pointer;
+}
