@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
 import { Navbar, Container, Nav } from 'react-bootstrap';
-import { sessionContext } from '../../App';
+import { sessionContext } from '../../index';
 import { HasRole } from '../../Authentication/Roles';
 import styles from '../css/NavContainer.module.css';
 import LoggedInNav from './LoggedInNav';
 import LoggedOutNav from './LoggedOutNav';
 
-const NavContainer: React.FC = () => {
+const NavContainer: React.FC<Props> = (props) => {
 	const context = useContext(sessionContext);
 	return (
 		<Navbar className={styles.NavBar}>
@@ -14,7 +14,7 @@ const NavContainer: React.FC = () => {
 				<Navbar.Brand>Lexicon Community</Navbar.Brand>
 				<Navbar.Toggle />
 				<Navbar.Collapse className="justify-content-end">
-					<Nav>
+					<Nav onSelect={props.NavHandler}>
 						{
 							context.user ? (
 								<LoggedInNav DisplayName={context.user.DisplayName} Admin={HasRole(context.user, "Administrator")} />
@@ -28,11 +28,11 @@ const NavContainer: React.FC = () => {
 		</Navbar>
 	);
 };
-// interface Props {
-// 	// LogedIn: boolean;
-// 	// Admin: undefined | true;
-// 	// UserName: string;
-// 	NavHandler: (eventKey: any, e?: React.SyntheticEvent<unknown>) => void;
-// }
+interface Props {
+	// LogedIn: boolean;
+	// Admin: undefined | true;
+	// UserName: string;
+	NavHandler: (eventKey: string | null, e?: React.SyntheticEvent<unknown>) => void;
+}
 
 export default NavContainer 

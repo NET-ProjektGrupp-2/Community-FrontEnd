@@ -1,23 +1,26 @@
 import React, { useContext } from 'react';
+import { sessionContext } from './index';
 import './App.css';
-import { User } from './Data/User';
 import NavContainer from './Navigation/components/NavContainer';
 import RouterContainer from './Navigation/components/RouterContainer';
+import { useNavigate, useLocation } from 'react-router-dom';
 
-export const sessionContext = React.createContext({
-	navState: "",
-	user: {} as User | undefined
-});
 function App() {
-	// const navHandler = (eventKey: string, e?: React.SyntheticEvent<unknown>) => {
-	// 	context.NavState = eventKey
-	// };
+	//const context = useContext(sessionContext);
+	const location = useLocation();
+	const navigate = useNavigate();
+	const linkHandler = (eventKey: string | null, e?: React.SyntheticEvent<unknown>) => {
+		if (eventKey) {
+			if (eventKey.startsWith("/") ) {
+				navigate(eventKey, { state: e });
+			}
+			
+		}
+	};
 	return (
 		<div className="App">
-			<sessionContext.Provider value={{navState: "", user: undefined}}>
-				<NavContainer />
-				<RouterContainer />
-			</sessionContext.Provider>
+			<NavContainer NavHandler={linkHandler}/>
+			<RouterContainer />
 		</div>
 	);
 }

@@ -4,13 +4,21 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { User } from './Data/User';
+
+export const sessionContext = React.createContext({
+	navState: "",
+	user: {} as User | undefined
+});
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+	<sessionContext.Provider value={{navState: "", user: undefined}}>
+    	<App />
+	</sessionContext.Provider>
   </React.StrictMode>
 );
 
