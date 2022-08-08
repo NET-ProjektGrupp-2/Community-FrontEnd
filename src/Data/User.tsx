@@ -14,10 +14,10 @@ export type User = {
 	Topics?: Int32List;
 	Posts?: Int32List;
 	Articles?: Int32List;
-	IdentityUserRoles?: string[];
+	RoleIds?: string[];
 }
 function validate(user: User){
-	if (user.Id && user.DisplayName && user.CreationDate && user.IdentityUserRoles?.length) {
+	if (user.Id && user.DisplayName && user.CreationDate && user.RoleIds?.length) {
 		return true;
 	}
 	return false;

@@ -9,6 +9,7 @@ import { User } from './Data/User';
 export const sessionContext = React.createContext({
 	navState: "",
 	user: {} as User | undefined
+	
 });
 
 const root = ReactDOM.createRoot(

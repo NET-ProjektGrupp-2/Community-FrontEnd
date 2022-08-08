@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { sessionContext } from '../..';
 
-export default function LoadingResponse(props: { requester: string, state: unknown }) {
-  return (
-	<div>LoadingResponse</div>
-  )
+export default function LoadingResponse() {
+	const context = useContext(sessionContext);
+
+	return (
+		<div>LoadingResponse</div>
+	)
 }

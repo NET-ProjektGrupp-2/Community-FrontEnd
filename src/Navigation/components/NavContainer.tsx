@@ -6,7 +6,7 @@ import styles from '../css/NavContainer.module.css';
 import LoggedInNav from './LoggedInNav';
 import LoggedOutNav from './LoggedOutNav';
 
-const NavContainer: React.FC<Props> = (props) => {
+const NavContainer: React.FC = () => {
 	const context = useContext(sessionContext);
 	return (
 		<Navbar className={styles.NavBar}>
@@ -14,7 +14,7 @@ const NavContainer: React.FC<Props> = (props) => {
 				<Navbar.Brand>Lexicon Community</Navbar.Brand>
 				<Navbar.Toggle />
 				<Navbar.Collapse className="justify-content-end">
-					<Nav onSelect={props.NavHandler}>
+					<Nav>
 						{
 							context.user ? (
 								<LoggedInNav DisplayName={context.user.DisplayName} Admin={HasRole(context.user, "Administrator")} />
@@ -28,11 +28,11 @@ const NavContainer: React.FC<Props> = (props) => {
 		</Navbar>
 	);
 };
-interface Props {
-	// LogedIn: boolean;
-	// Admin: undefined | true;
-	// UserName: string;
-	NavHandler: (eventKey: string | null, e?: React.SyntheticEvent<unknown>) => void;
-}
+// interface Props {
+// 	// LogedIn: boolean;
+// 	// Admin: undefined | true;
+// 	// UserName: string;
+// 	NavHandler: (eventKey: string | null, e?: React.SyntheticEvent<unknown>) => void;
+// }
 
 export default NavContainer 
