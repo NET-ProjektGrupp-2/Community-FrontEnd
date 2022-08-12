@@ -17,7 +17,7 @@ function filterToplevelForums() {
 	return result;
 }
 export const forumContextObject = {
-	topForums: filterToplevelForums(),
+	topForums: [] as Forum[],
 	activeForum: null as Forum | null,
 	forumPath: "",
 	subForums: null as Forum[] | null
@@ -25,8 +25,8 @@ export const forumContextObject = {
 export const forumContext = React.createContext(forumContextObject);
 
 export default function Forums() {
+	forumContextObject.topForums=filterToplevelForums();
 	const [state, setState] = useState(forumContextObject);
-
 	const setActiveForum = (forum: Forum | null) => {
 		setState({
 			...state,
