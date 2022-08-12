@@ -3,7 +3,7 @@ import { filterData, loadedForums } from 'App';
 import { Forum, GetPath } from 'Data/Forum';
 import ForumNavList from 'Navigation/components/ForumNavList';
 import ForumComponent from './ForumComponent';
-import { Route, useLocation } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import * as keys from 'GlobalConst';
 import { LocationTracker, TrackLocation } from 'Navigation/components/LoadingResponse';
 
@@ -25,7 +25,7 @@ export const forumContextObject = {
 export const forumContext = React.createContext(forumContextObject);
 
 export default function Forums() {
-	forumContextObject.topForums=filterToplevelForums();
+	forumContextObject.topForums = filterToplevelForums();
 	const [state, setState] = useState(forumContextObject);
 	const setActiveForum = (forum: Forum | null) => {
 		setState({
@@ -44,7 +44,7 @@ export default function Forums() {
 				let index = splitPath.indexOf("topic");
 				index = index === -1 ? splitPath.length - 1 : index;
 				let forumId = Number(splitPath[index]);
-				if(isNaN(forumId)) {
+				if (isNaN(forumId)) {
 					setActiveForum(null);
 				}
 				if (state.activeForum?.Id !== forumId) {
@@ -66,8 +66,10 @@ export default function Forums() {
 	return (
 		<forumContext.Provider value={state}>
 			<ForumNavList forumNavHandler={setActiveForum} />
-			<Route path={keys.RKey_SubId} element={
-				<ForumComponent />} />
+			<Routes>
+				<Route path={keys.RKey_SubId} element={
+					<ForumComponent />} />
+			</Routes>
 		</forumContext.Provider>
 	);
 }

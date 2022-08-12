@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { Route, useParams } from 'react-router-dom';
+import { Route, Routes, useParams } from 'react-router-dom';
 import { loadedForums } from 'App';
 import Topics from './Topics';
 import * as keys from 'GlobalConst';
@@ -12,18 +12,18 @@ function ForumComponent() {
 
 
 	return thisForum ?
-		<>
+		<Routes>
 			<Route path={keys.RKey_Wildcard} element={
 				<Topics />
 			} />
 			{thisForum.SubForumIds ?
 				<Route path={keys.RKey_SubId} element={<ForumComponent />} /> : 
 				null}
-		</> :
-		<>	{context.subForums ?
+		</Routes> :
+		<Routes>	{context.subForums ?
 				<Route path={keys.RKey_SubId} element={<ForumComponent />} /> :
 				null}
-		</>
+		</Routes>
 }
 
 export default ForumComponent

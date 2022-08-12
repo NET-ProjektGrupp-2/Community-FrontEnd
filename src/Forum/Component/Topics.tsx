@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
-import { Route, useParams } from 'react-router-dom';
+import { Route, Routes, useParams } from 'react-router-dom';
 import { filterData, loadedPosts, loadedTopics } from 'App';
 import Posts from './Posts';
 import TopicNavList from 'Navigation/components/TopicNavList';
@@ -58,7 +58,9 @@ function Topics() {
 	return (
 		<topicContext.Provider value={state}><>
 			<TopicNavList linkHandler={setActiveTopic} />
-			<Route path={`${keys.EKey_NavTopic}/${keys.RKey_SubId}`} element />
+			<Routes>
+				<Route path={`${keys.EKey_NavTopic}/${keys.RKey_SubId}`} element />
+			</Routes>
 		</></topicContext.Provider>
 	)
 }
