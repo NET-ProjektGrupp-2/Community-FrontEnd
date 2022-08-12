@@ -1,3 +1,4 @@
+import { loadedForums } from "App";
 
 export type Forum = {
 
@@ -6,9 +7,20 @@ export type Forum = {
 	Description: string;
 
 	ParentForumId?: number;
-	SubForumIds?: Int32Array;
-	TopicIds?: Int32Array;
+	SubForumIds?: number[];
+	TopicIds?: number[];
 
 	ModeratorIds?: string[];
 	RestrictedRoleId?: string;
+
+	TimeUpdated?: number;
+}
+
+export function GetPath(forum: Forum | null) {
+	let path: number[] = [];
+	while (forum) {
+		path.push(forum.Id);
+		forum = forum.ParentForumId? loadedForums[forum.ParentForumId] : null;
+	}
+	return path.reverse().join('/').concat('/');
 }

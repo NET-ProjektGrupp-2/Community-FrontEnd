@@ -5,6 +5,8 @@ import { HasRole } from '../../Authentication/Roles';
 import styles from '../css/NavContainer.module.css';
 import LoggedInNav from './LoggedInNav';
 import LoggedOutNav from './LoggedOutNav';
+import { Link } from 'react-router-dom';
+import * as keys from '../../GlobalConst'
 
 const NavContainer: React.FC = () => {
 	const context = useContext(sessionContext);
@@ -15,6 +17,7 @@ const NavContainer: React.FC = () => {
 				<Navbar.Toggle />
 				<Navbar.Collapse className="justify-content-end">
 					<Nav>
+						<Link to={keys.EKey_NavForum}>Forums</Link>
 						{
 							context.user ? (
 								<LoggedInNav DisplayName={context.user.DisplayName} Admin={HasRole(context.user, "Administrator")} />

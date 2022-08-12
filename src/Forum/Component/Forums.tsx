@@ -1,33 +1,77 @@
+import React, { useEffect, useState } from 'react'
+import { filterData, loadedForums } from 'App';
+import { Forum, GetPath } from 'Data/Forum';
+import ForumNavList from 'Navigation/components/ForumNavList';
+import ForumComponent from './ForumComponent';
+import { Route, useLocation } from 'react-router-dom';
+import * as keys from 'GlobalConst';
+import { LocationTracker, TrackLocation } from 'Navigation/components/LoadingResponse';
 
-import React, { Component, useContext, useEffect, useState } from 'react'
-import { Link, Route, useParams } from 'react-router-dom';
-import { sessionContext } from '../..';
-import { loadedForums } from '../../App';
-import { Forum } from '../../Data/Forum';
-import * as keys from '../../GlobalConst'
-import Topics from './Topics';
-
-
-
-function filterForums(id: string | number | undefined) {
-	id = typeof id === 'string' ? parseInt(id) : id;
-	let subForums: Forum[] = [];
-	for (let key in loadedForums) {
-		if (loadedForums[key].ParentForumId === id) {
-			subForums.push(loadedForums[key]);
+function filterToplevelForums() {
+	let result: Forum[] = [];
+	for (let id in loadedForums) {
+		if (!loadedForums[id].ParentForumId) {
+			result.push(loadedForums[id]);
 		}
 	}
-	return subForums.length === 0 ? null : subForums;
+	return result;
+}
+export const forumContextObject = {
+	topForums: filterToplevelForums(),
+	activeForum: null as Forum | null,
+	forumPath: "",
+	subForums: null as Forum[] | null
+};
+export const forumContext = React.createContext(forumContextObject);
+
+export default function Forums() {
+	const [state, setState] = useState(forumContextObject);
+
+	const setActiveForum = (forum: Forum | null) => {
+		setState({
+			...state,
+			activeForum: forum,
+			forumPath: GetPath(forum),
+			subForums: filterData(loadedForums, forum?.SubForumIds)
+		});
+	}
+
+	useEffect(() => {
+		let trackLocation: TrackLocation;
+		trackLocation = {
+			Path: keys.EKey_NavForum,
+			Match(path, prevPath, splitPath) {
+				let index = splitPath.indexOf("topic");
+				index = index === -1 ? splitPath.length - 1 : index;
+				let forumId = Number(splitPath[index]);
+				if(isNaN(forumId)) {
+					setActiveForum(null);
+				}
+				if (state.activeForum?.Id !== forumId) {
+					try {
+						setActiveForum(loadedForums[forumId]);
+					} catch (error) {
+						return "That forum does not exist."
+					}
+				}
+			}
+		};
+		LocationTracker.addLocation(trackLocation);
+
+		return () => {
+			LocationTracker.removeLocation(trackLocation)
+		}
+	}, []);
+
+	return (
+		<forumContext.Provider value={state}>
+			<ForumNavList forumNavHandler={setActiveForum} />
+			<Route path={keys.RKey_SubId} element={
+				<ForumComponent />} />
+		</forumContext.Provider>
+	);
 }
 
-export default function Forums () {
-	const { navState, user } = useContext(sessionContext);
-	const {  id } = useParams();
-	let forum = id ? loadedForums[parseInt(id)] : null;
-	const [state, setState] = useState({
-		thisForum: forum,
-		subForums: filterForums(id)
-	});
 	// useEffect(() => {
 	// 	if (!forum) {
 	// 		// await fetch from server
@@ -40,53 +84,3 @@ export default function Forums () {
 
 	// 	authorized ? (this.setState({ activeForumId: ForumId })) : this.context.navState = keys.AKey_ForumNotAuth;
 	// }, [navState]);
-
-	function setActiveForum(ForumId: number) {
-		let forum = loadedForums[ForumId];
-		setState(prevState => ({...prevState, subForums: null}));
-		
-	}
-
-	return (
-		<div>
-		{ state.subForums ?
-			<div className='navList'>
-				<h3>Forums</h3>
-				<ul>
-					{state.subForums.map((forum) => <Link to={forum.Id.toString()} onClick={() => setActiveForum(forum.Id)}>{forum.Name}</Link>)}
-				</ul>
-			</div> :
-			<div>no subforum list</div> 
-		}
-		{ state.thisForum ?
-			<Topics />:
-			<div>no topics</div> 
-		}
-			<Route path=':id' element={<Forums />}/>
-		</div>
-	)
-}
-
-
-
-// export default class Forums extends Component {
-// 	static contextType = sessionContext;
-
-// 	declare context: React.ContextType<typeof sessionContext>;
-
-// 	// constructor(args: any) {
-// 	// 	super(args);
-
-// 	// 	this.state = {
-// 	// 		activeForumId: 0
-// 	// 	};
-// 	// }
-
-
-// 	render(): JSX.Element {
-// 		return (
-// 			<div>Forums</div>
-// 		)
-// 	}
-// }
-
