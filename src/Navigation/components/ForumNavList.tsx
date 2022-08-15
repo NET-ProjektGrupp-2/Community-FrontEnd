@@ -1,28 +1,30 @@
-import { Forum } from 'Data/Forum'
+import { filterToplevelForums, Forum, GetPath } from 'Data/Forum'
 import React, { useContext } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useParams } from 'react-router-dom'
 import styles from 'DebugTestDev.module.css';
-import { forumContextObject, forumContext } from 'Forum/Component/Forums';
+import { filterData, loadedForums } from 'App';
 
-function ForumNavList(props: { forumNavHandler: (forum: Forum, context: typeof forumContextObject) => void }) {
-	const context = useContext(forumContext);
-	const { activeForum, forumPath, subForums} = context;
+function ForumNavList(props:{forumId:number}) {
+	const { forumId } = props;
+	const parentForum = forumId ? loadedForums[forumId] : null;
+	const subForums = parentForum ? filterData(loadedForums, parentForum.SubForumIds) : filterToplevelForums();
+	const forumPath = GetPath(parentForum);
 
 	return (
 		<div className={styles.navList}>
 			<h5>Forums</h5>
-			<ul>{subForums ? 
-				subForums.map((forum) =>
+			{subForums ?
+			<ul>{subForums.map((forum) =>
 					<li><Link className={styles.navLink}
 						key={forum.Id}
 						to={`${forumPath}${forum.Id.toString()}`}>
-						{activeForum ?
+						{parentForum ?
 							<div>{forum.Name}</div> :
-							<div>Extensive forum description</div>}
+							<div>{forum.Name} - Extensive forum description</div>}
 					</Link></li>
-				): null }
-			</ul>
-			
+				)}
+			</ul> : 
+			<p>Nothing here</p>}
 		</div>
 	)
 }

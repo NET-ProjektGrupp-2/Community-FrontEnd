@@ -1,25 +1,23 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+
+import { Link, useLocation, useParams } from 'react-router-dom'
 import styles from 'DebugTestDev.module.css';
 import { Topic } from 'Data/Topic';
-import { topicContext, topicContextObject } from 'Forum/Component/Topics';
-import { useContext } from 'react';
 
-function TopicNavList(props:{linkHandler: (topic: Topic, tContext: typeof topicContextObject) => void}) {
-	const context = useContext(topicContext);
-	const { activeTopic, topics} = context;
-	
+function TopicNavList(props:{topics: Topic[] | null, topicLocation: string}) {
+	const {topics, topicLocation} = props;
+	const id = Number(useParams()["id"]);
+
 	return (
 		<div className={styles.navList}>
 			<span>Topics</span>
 			<ul>
 			{topics?.map((topic) => 
 				<li><Link className={styles.navLink} 
-					key={`topic_${topic.Id}`} 
-					to={`topic/${topic.Id}`}>
-					{activeTopic ?
-						<div>{topic.Title}</div> :
-						<div><>Extensive topic description{topic}</></div>}
+					key={topic.Id}
+					to={`${topicLocation}${topic.Id.toString()}`}>
+					{isNaN(id) ?
+						<div>{topic.Title} - Extensive topic description</div> :
+						<div>{topic.Title} - small</div> }
 				</Link></li>
 			)}
 			</ul>

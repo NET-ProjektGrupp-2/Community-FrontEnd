@@ -6,6 +6,16 @@ import { Forum } from './Data/Forum';
 import { Topic } from './Data/Topic';
 import { Post } from './Data/Post';
 
+export const loadedForums: {
+	[forumId: number]: Forum
+} = {} as const;
+export const loadedTopics: {
+	[topicId: number]: Topic
+} = {} as const;
+export const loadedPosts: {
+	[postId: number]: Post
+} = {} as const;
+
 export default function App() {
 
 	loadedForums[1] = { Id: 1, Name: "First", Description: "first", SubForumIds: [2] };
@@ -34,18 +44,10 @@ export function filterData<T = {}>(source: { [id: number]: T }, ids: number[] | 
 	if (!ids) {
 		return null;
 	}
-	let result: T[] = [];
-	for (let id in ids) {
-		result.push(source[id]);
-	}
+	let result = [] as T[];
+	ids.forEach(id => {
+		let x = source[id] as T;
+		result.push(x);
+	});
 	return result.length === 0 ? null : result;
 }
-export const loadedForums: {
-	[forumId: number]: Forum
-} = {};
-export const loadedTopics: {
-	[topicId: number]: Topic
-} = {};
-export const loadedPosts: {
-	[postId: number]: Post
-} = {};

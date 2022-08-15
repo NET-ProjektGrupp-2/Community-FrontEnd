@@ -18,7 +18,7 @@ const Login = () => {
 				
 			</Form>
 			<Link to={keys.EKey_SubmitLogin}>Sign In</Link>
-			<Link to={keys.EKey_NavRegister}>Register</Link>
+			<Link to={keys.NKey_NavRegister}>Register</Link>
 		</>
 	)
 }

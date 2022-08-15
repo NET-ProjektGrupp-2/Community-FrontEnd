@@ -1,7 +1,5 @@
-import React, { useContext, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { useLocation } from 'react-router-dom';
-import { sessionContext } from '../..';
-import * as keys from 'GlobalConst';
 import { useState } from 'react';
 
 

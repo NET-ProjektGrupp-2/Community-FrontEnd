@@ -6,14 +6,14 @@ import * as keys from '../../GlobalConst'
 
 const LoggedInNav :React.FC<Props> = ({Admin, DisplayName}) => (
     <>
-        {Admin ?? <Link to={keys.EKey_NavViewUsers}>List of Users</Link>}
+        {Admin ?? <Link to={keys.NKey_NavViewUsers}>List of Users</Link>}
         <NavDropdown title={DisplayName} menuVariant="dark">
             <NavDropdown.Item>
-				<Link to={keys.EKey_NavAccount}>My account</Link>
+				<Link to={keys.NKey_NavAccount}>My account</Link>
 			</NavDropdown.Item>
             <NavDropdown.Divider/>
             <NavDropdown.Item>
-				<Link to={keys.EKey_NavLogout}>Log out</Link>
+				<Link to={keys.NKey_NavLogout}>Log out</Link>
 			</NavDropdown.Item>
         </NavDropdown>
         <UserIcon/>

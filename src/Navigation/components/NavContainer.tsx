@@ -17,7 +17,7 @@ const NavContainer: React.FC = () => {
 				<Navbar.Toggle />
 				<Navbar.Collapse className="justify-content-end">
 					<Nav>
-						<Link to={keys.EKey_NavForum}>Forums</Link>
+						<Link to={keys.NKey_NavForum}>Forums</Link>
 						{
 							context.user ? (
 								<LoggedInNav DisplayName={context.user.DisplayName} Admin={HasRole(context.user, "Administrator")} />

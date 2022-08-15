@@ -15,12 +15,23 @@ export type Forum = {
 
 	TimeUpdated?: number;
 }
-
+export function filterToplevelForums() {
+	let result: Forum[] = [];
+	for (let id in loadedForums) {
+		if (!loadedForums[id].ParentForumId) {
+			result.push(loadedForums[id]);
+		}
+	}
+	return result;
+}
 export function GetPath(forum: Forum | null) {
+	if (!forum) {
+		return "/forum/";
+	}
 	let path: number[] = [];
 	while (forum) {
 		path.push(forum.Id);
 		forum = forum.ParentForumId? loadedForums[forum.ParentForumId] : null;
 	}
-	return path.reverse().join('/').concat('/');
+	return "/forum/".concat(path.reverse().join('/').concat('/'));
 }

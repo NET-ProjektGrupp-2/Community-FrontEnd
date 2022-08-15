@@ -13,10 +13,10 @@ function RouterContainer() {
 		<>
 		<LoadingResponse />
 		<Routes>
-			<Route path={keys.EKey_NavLogin} element={<Login />} />
-			<Route path={keys.EKey_NavLogout} element={<Logout />} />
-			<Route path={keys.EKey_NavRegister} element={<Register />} />
-			<Route path={`${keys.EKey_NavForum}${keys.RKey_Wildcard}`} element={<Forums />}/>
+			<Route path={keys.NKey_NavLogin} element={<Login />} />
+			<Route path={keys.NKey_NavLogout} element={<Logout />} />
+			<Route path={keys.NKey_NavRegister} element={<Register />} />
+			<Route path={`${keys.NKey_NavForum}${keys.RKey_Wildcard}`} element={<Forums />}/>
 			<Route path={keys.RKey_Wildcard} element={<Home />}/>
 
 		</Routes></>

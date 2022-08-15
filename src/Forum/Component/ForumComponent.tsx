@@ -3,27 +3,22 @@ import { Route, Routes, useParams } from 'react-router-dom';
 import { loadedForums } from 'App';
 import Topics from './Topics';
 import * as keys from 'GlobalConst';
-import { forumContext } from './Forums';
+import ForumNavList from 'Navigation/components/ForumNavList';
 
 function ForumComponent() {
-	const context = useContext(forumContext);
-	const { id } = useParams();
-	const thisForum = id ? loadedForums[parseInt(id)] : null;
-
+	const id = parseInt(useParams()["id"]??"0");
+	const thisForum = id ? loadedForums[id] : null;
 
 	return thisForum ?
 		<Routes>
 			<Route path={keys.RKey_Wildcard} element={
-				<Topics />
-			} />
-			{thisForum.SubForumIds ?
-				<Route path={keys.RKey_SubId} element={<ForumComponent />} /> : 
-				null}
+			<>
+				<ForumNavList forumId={id}/>
+				<Topics forum={thisForum}/>
+			</>} />
+			<Route path={keys.RKey_SubId} element={<ForumComponent />} />
 		</Routes> :
-		<Routes>	{context.subForums ?
-				<Route path={keys.RKey_SubId} element={<ForumComponent />} /> :
-				null}
-		</Routes>
+		<h1>Loading...</h1>
 }
 
 export default ForumComponent

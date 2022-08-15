@@ -1,67 +1,58 @@
-import { useContext, useEffect, useState } from 'react'
-import { Route, Routes, useParams } from 'react-router-dom';
-import { filterData, loadedPosts, loadedTopics } from 'App';
-import Posts from './Posts';
+import { useEffect, useState } from 'react'
+import { Route, Routes, useLocation } from 'react-router-dom';
+import { filterData, loadedTopics } from 'App';
 import TopicNavList from 'Navigation/components/TopicNavList';
 import * as keys from '../../GlobalConst';
 import TopicComponent from './TopicComponent';
-import { Topic } from 'Data/Topic';
-import { LocationTracker, TrackLocation } from 'Navigation/components/LoadingResponse';
+import { GetLocation, Topic } from 'Data/Topic';
 import React from 'react';
-import { forumContext } from './Forums';
+import { Forum, GetPath } from 'Data/Forum';
 
-export const topicContextObject = {
-	activeTopic: null as Topic | null,
-	topics: null as Topic[] | null
-};
-export const topicContext = React.createContext(topicContextObject);
+// export const topicContextObject = {
+// 	topics: null as Topic[] | null,
+// 	activeTopic: (splitPath: string[]) => (NaN),
+// 	topicLocation: ""
+// };
+// export const topicContext = React.createContext(topicContextObject);
 
-function Topics() {
-	const context = useContext(forumContext);
-	const [state, setState] = useState(topicContextObject);
-	
-	const setActiveTopic = (topic: Topic | null) => {
-		setState({
-			...state,
-			activeTopic: topic
-		});
-	}
+function Topics(props: { forum: Forum }) {
+	const { forum } = props;
+	const topics = filterData(loadedTopics, forum.TopicIds);
+	const topicLocation = GetLocation(GetPath(forum));
 
-	useEffect(() => {
-		
-		let trackLocation: TrackLocation;
-		trackLocation = {
-			Path: keys.EKey_NavTopic,
-			Match(path, prevPath, splitPath) {
-				let index = splitPath.indexOf("post");
-				index = index === -1 ? splitPath.length - 1 : index;
-				let topicId = Number(splitPath[index]);
-				if(isNaN(topicId)) {
-					setActiveTopic(null);
-				}
-				if (state.activeTopic?.Id !== topicId) {
-					try {
-						setActiveTopic(loadedTopics[topicId]);
-					} catch (error) {
-						return "That topic does not exist."
-					}
-				}
-			}
-		};
-		LocationTracker.addLocation(trackLocation);
+	// function IsTopic(splitPath: string[]): number {
+	// 	let index = splitPath.indexOf("topic");
+	// 	index = index === -1 ? NaN : Number(splitPath[index + 1]);
+	// 	return index;
+	// }
 
-		return () => {
-			LocationTracker.removeLocation(trackLocation)
-		}
-	}, []);
+	// const [state] = useState(
+	// 	{
+	// 		topics: filterData(loadedTopics, forum.TopicIds),
+	// 		activeTopic: IsTopic,
+	// 		topicLocation: GetLocation(GetPath(forum))
+	// 	}
+	// );
+
+	// useEffect(() => {
+	// 	console.log("Topics loaded");
+	// 	return () => {
+	// 		console.log("Topics UN-loaded");
+	// 	}
+	// }, []);
 
 	return (
-		<topicContext.Provider value={state}><>
-			<TopicNavList linkHandler={setActiveTopic} />
-			<Routes>
-				<Route path={`${keys.EKey_NavTopic}/${keys.RKey_SubId}`} element />
-			</Routes>
-		</></topicContext.Provider>
+		<Routes>
+			<Route path='/' element={<TopicNavList topics={topics} topicLocation={topicLocation} />} />
+			<Route path={`${keys.NKey_NavTopic}${keys.RKey_Wildcard}`} element={
+				<Route path={keys.RKey_SubId} element={
+					<>
+						<TopicNavList topics={topics} topicLocation={topicLocation} />
+						<TopicComponent />
+					</>
+				} />
+			} />
+		</Routes>
 	)
 }
 
