@@ -1,44 +1,26 @@
-import React, { useContext, useEffect } from 'react'
-import { sessionContext } from '../../index'
-import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Login from '../../Authentication/components/Login';
 import Logout from '../../Authentication/components/Logout';
 import * as keys from '../../GlobalConst';
 import Register from '../../Authentication/components/Register';
 import LoadingResponse from './LoadingResponse';
+import Forums from "../../Forum/Component/Forums";
+import Home from "Home/Components/Home";
 
 function RouterContainer() {
-	const context = useContext(sessionContext);
-	const location = useLocation();
-	useEffect(() => {
-
-		return () => {
-		}
-	}, [context.navState])
 
 	return (
-		<Router>
-			<Routes>
-				{
-					
-					<LoadingResponse requester="asd" state={location.state} />
-				}
-				<Route path={keys.EKey_NavLogin}>
-					<Login state={location.state}/>
-				</Route>
-				<Route path={keys.EKey_NavLogout}>
-					<Logout />
-				</Route>
-				<Route path='/register'>
-					<Register />
-				</Route>
-				<Route path='/*'>
-					<Route ></Route>
-				</Route>
-			</Routes>
-		</Router>
+		<>
+		<LoadingResponse />
+		<Routes>
+			<Route path={keys.NKey_NavLogin} element={<Login />} />
+			<Route path={keys.NKey_NavLogout} element={<Logout />} />
+			<Route path={keys.NKey_NavRegister} element={<Register />} />
+			<Route path={`${keys.NKey_NavForum}${keys.RKey_Wildcard}`} element={<Forums />}/>
+			<Route path={keys.RKey_Wildcard} element={<Home />}/>
+
+		</Routes></>
 	)
 }
-
 
 export default RouterContainer

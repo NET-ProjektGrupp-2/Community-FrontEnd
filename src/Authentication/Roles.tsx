@@ -3,7 +3,7 @@ import { User } from "../Data/User";
 declare const Roles: {[key:string]: string};
 
 export function HasRole(user: User, roleName: string){
-	if (user.IdentityUserRoles?.find(role => Roles[role] === roleName) ) {
+	if (user.RoleIds?.find(role => Roles[role] === roleName) ) {
 		return true;
 	}
 }

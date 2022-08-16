@@ -1,17 +1,22 @@
 import React from 'react'
-import { Nav, NavDropdown } from 'react-bootstrap'
+import {Link} from 'react-router-dom'
+import {NavDropdown } from 'react-bootstrap'
 import UserIcon from './UserIcon'
 import * as keys from '../../GlobalConst'
 
 const LoggedInNav :React.FC<Props> = ({Admin, DisplayName}) => (
     <>
-        {Admin ?? <Nav.Link eventKey={keys.EKey_NavViewUsers}>List of Users</Nav.Link>}
+        {Admin ?? <Link to={keys.NKey_NavViewUsers}>List of Users</Link>}
         <NavDropdown title={DisplayName} menuVariant="dark">
-            <NavDropdown.Item eventKey={keys.EKey_NavAccount}>My account</NavDropdown.Item>
+            <NavDropdown.Item>
+				<Link to={keys.NKey_NavAccount}>My account</Link>
+			</NavDropdown.Item>
             <NavDropdown.Divider/>
-            <NavDropdown.Item eventKey={keys.EKey_NavLogout}>Log out</NavDropdown.Item>
+            <NavDropdown.Item>
+				<Link to={keys.NKey_NavLogout}>Log out</Link>
+			</NavDropdown.Item>
         </NavDropdown>
-        <UserIcon/> 
+        <UserIcon/>
     </>
 )
 interface Props{
