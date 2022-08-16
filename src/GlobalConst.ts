@@ -19,7 +19,7 @@ export const NKey_NavAccount = "/manageAccount";
 export const NKey_NavForum = "/forum";
 export const EKey_SubmitForum = "forum?";
 
-export const NKey_NavTopic = "topic";
+export const NKey_NavTopic = "/topic";
 export const EKey_SubmitTopic = "topic?";
 export const NKey_NavPost = "/post";
 export const EKey_SubmitPost = "post?";

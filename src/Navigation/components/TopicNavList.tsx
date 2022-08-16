@@ -1,5 +1,5 @@
 
-import { Link, useLocation, useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import styles from 'DebugTestDev.module.css';
 import { Topic } from 'Data/Topic';
 

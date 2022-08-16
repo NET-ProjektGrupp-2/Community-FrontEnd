@@ -18,13 +18,13 @@ export const loadedPosts: {
 
 export default function App() {
 
-	loadedForums[1] = { Id: 1, Name: "First", Description: "first", SubForumIds: [2] };
-	loadedForums[2] = { Id: 2, Name: "Second", Description: "second", TopicIds: [1, 2, 3], ParentForumId: 1, SubForumIds: [3] };
-	loadedForums[3] = { Id: 3, Name: "Third", Description: "third", ParentForumId: 2 };
+	loadedForums[1] = { Id: 1, Name: "First F", Description: "first", SubForumIds: [2] };
+	loadedForums[2] = { Id: 2, Name: "Second F", Description: "second", TopicIds: [1, 2, 3], ParentForumId: 1, SubForumIds: [3] };
+	loadedForums[3] = { Id: 3, Name: "Third F", Description: "third", ParentForumId: 2 };
 
-	loadedTopics[1] = { Id: 1, Title: "First", CreationDate: Date.now(), AuthorId: "system", ForumId: 2 };
-	loadedTopics[2] = { Id: 2, Title: "Second", CreationDate: Date.now(), AuthorId: "system", ForumId: 2 };
-	loadedTopics[3] = { Id: 3, Title: "Third", CreationDate: Date.now(), AuthorId: "system", ForumId: 2 };
+	loadedTopics[1] = { Id: 1, Title: "First T", CreationDate: Date.now(), AuthorId: "system", ForumId: 2 };
+	loadedTopics[2] = { Id: 2, Title: "Second T", CreationDate: Date.now(), AuthorId: "system", ForumId: 2, PostIds: [1,2,3]};
+	loadedTopics[3] = { Id: 3, Title: "Third T", CreationDate: Date.now(), AuthorId: "system", ForumId: 2 };
 
 	loadedPosts[1] = { Id: 1, PostDate: Date.now(), AuthorId: "system", Replies: [2, 3], TopicId: 2, Content: "Lorem ipsum" };
 	loadedPosts[2] = { Id: 2, PostDate: Date.now(), AuthorId: "system", ContextPostId: 1, TopicId: 2, Content: "Dolor" };

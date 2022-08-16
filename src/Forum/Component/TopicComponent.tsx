@@ -1,29 +1,29 @@
 import { loadedTopics } from 'App';
 import { useEffect } from 'react'
-import { Route, Routes, useLocation, useParams } from 'react-router-dom';
+import { Route, Routes, useParams } from 'react-router-dom';
 import Posts from './Posts';
 import * as keys from 'GlobalConst';
+import styles from 'DebugTestDev.module.css';
 
 function TopicComponent() {
 	const { id } = useParams();
 	const thisTopic = id ? loadedTopics[parseInt(id)] : null;
-	const location = useLocation();
 
 	useEffect(() => {
 		console.log(`Topic id#${id} loaded`);
 	}, []);
 
 	return thisTopic ?
-		<div className='topicContainer'>
+		<div className={styles.topicContainer}>
 			<h1>{thisTopic.Title}</h1>
-			<span className='details'>{thisTopic.AuthorId}{thisTopic.CreationDate}{thisTopic.NewsArticleId}</span>
+			<span className={styles.details}>Author:{thisTopic.AuthorId} Postdate:{thisTopic.CreationDate} {thisTopic.NewsArticleId}</span>
 			<Routes>
-				<Route path='/' element={<Posts topic={thisTopic}/>} />
-				<Route path={`${keys.NKey_NavPost}/${keys.RKey_SubId}`} element={<Posts topic={thisTopic}/>} />
+				<Route path={keys.RKey_Wildcard} element={<Posts topic={thisTopic} hasFocus={false} />} />
+				<Route path={`${keys.NKey_NavPost}/${keys.RKey_SubId}`} element={<Posts topic={thisTopic} hasFocus={true} />} />
 			</Routes>
 		</div> :
 		<div>
-			<h1>Loading...</h1>
+			<h1>Loading topics...not</h1>
 		</div>;
 }
 

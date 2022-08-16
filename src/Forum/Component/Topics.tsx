@@ -41,16 +41,18 @@ function Topics(props: { forum: Forum }) {
 	// 	}
 	// }, []);
 
+	// return (<>
+	// 	<TopicNavList topics={topics} topicLocation={topicLocation} />
+	// 	<TopicComponent />
+	// 	</>);
 	return (
 		<Routes>
 			<Route path='/' element={<TopicNavList topics={topics} topicLocation={topicLocation} />} />
-			<Route path={`${keys.NKey_NavTopic}${keys.RKey_Wildcard}`} element={
-				<Route path={keys.RKey_SubId} element={
-					<>
-						<TopicNavList topics={topics} topicLocation={topicLocation} />
-						<TopicComponent />
-					</>
-				} />
+			<Route path={keys.RKey_SubId} element={
+				<>
+					<TopicNavList topics={topics} topicLocation={topicLocation} />
+					<TopicComponent />
+				</>
 			} />
 		</Routes>
 	)
