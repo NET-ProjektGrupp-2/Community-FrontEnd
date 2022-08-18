@@ -1,6 +1,7 @@
 :root {
 	--navListBackground: #d1d1d1;
 	--content-max-width: 70%;
+	--content-wrapper-margin-top: 5px;
 }
 
 .navList {
@@ -48,10 +49,12 @@
 	display: flex;
 	max-width: var(--content-max-width);
 	margin: auto;
+	margin-top: var(--content-wrapper-margin-top);
 }
 
 .contentWrapperNoFlex {
 	max-width: var(--content-max-width);
 	margin: auto;
+	margin-top: var(--content-wrapper-margin-top);
 
 }
