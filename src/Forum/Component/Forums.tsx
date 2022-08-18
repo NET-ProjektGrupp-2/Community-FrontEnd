@@ -6,7 +6,7 @@ import ForumComponent from './ForumComponent';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import * as keys from 'GlobalConst';
 import { LocationTracker, TrackLocation } from 'Navigation/components/LoadingResponse';
-
+import styles from 'DebugTestDev.module.css';
 
 // export const forumContextObject = {
 // 	topForums: [] as Forum[],
@@ -74,7 +74,11 @@ export default function Forums() {
 	return (
 		//<forumContext.Provider value={state}>
 			<Routes>
-				<Route path="/" element={<ForumNavList forumId={0}/>} />
+				<Route path="/" element={<>
+				<div className={styles.contentWrapperNoFlex}>
+					<ForumNavList forumId={0}/>
+				</div>
+				</>} />
 				<Route path={keys.RKey_SubId} element={<ForumComponent />} />
 			</Routes>
 		//</forumContext.Provider>

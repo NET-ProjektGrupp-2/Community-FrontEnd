@@ -1,10 +1,11 @@
 :root {
 	--navListBackground: #d1d1d1;
+	--content-max-width: 70%;
 }
 
 .navList {
-	background-color: var(--navListBackground);
-	max-width: 30%;;
+	background: var(--navListBackground);
+	padding: 1rem;
 }
 
 .navList ul {
@@ -21,6 +22,7 @@
 .topicContainer {
 	border: 1px solid;
 	background-color: darkgray;
+	max-width: 100%;
 }
 
 .details {
@@ -31,4 +33,25 @@
 .forumPost {
 	border: 1px solid;
 	background-color: rgb(210, 174, 85);
+}
+
+.forumNavContainer {
+	display: inline-block;
+	margin-right: 1rem;
+}
+.content {
+	display: inline-block;
+	flex: auto;
+	
+}
+.contentWrapper {
+	display: flex;
+	max-width: var(--content-max-width);
+	margin: auto;
+}
+
+.contentWrapperNoFlex {
+	max-width: var(--content-max-width);
+	margin: auto;
+
 }
