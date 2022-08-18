@@ -2,6 +2,10 @@
 	--navListBackground: #d1d1d1;
 	--content-max-width: 70%;
 	--content-wrapper-margin-top: 5px;
+
+	--navLink-link-color: #00709c;
+	--navLink-link-color-active: #004094;
+
 }
 
 .navList {
@@ -18,22 +22,31 @@
 .navLink {
 	background-color: rgb(0, 0, 0);
 	padding: 0;
+	color: var(--navLink-link-color);
+	text-decoration: none;	
+	
+}
+
+.navLink:hover {
+	color: var(--navLink-link-color-active);
+	transition: all 0.3s ease-out;
 }
 
 .topicContainer {
 	border: 1px solid;
-	background-color: darkgray;
+	background: darkgray;
 	max-width: 100%;
 }
 
 .details {
 	border: 1px solid;
-	background-color: goldenrod;
+	border-radius: 100000px;
+	background: goldenrod;
 }
 
 .forumPost {
 	border: 1px solid;
-	background-color: rgb(210, 174, 85);
+	background: rgb(210, 174, 85);
 }
 
 .forumNavContainer {
