@@ -11,12 +11,17 @@ function ForumComponent() {
 	return thisForum ?
 		<Routes>
 			<Route path='/' element={<>
+				 <section>
 				<ForumNavList forumId={id} />
 				<Topics forum={thisForum} />
+
+				 </section>
 			</>} />
 			<Route path={`${keys.NKey_NavTopic}${keys.RKey_Wildcard}`} element={<>
-				<ForumNavList forumId={id} />
-				<Topics forum={thisForum} />
+				<div>
+					<ForumNavList forumId={id} />
+					<Topics forum={thisForum} />
+				</div>
 			</>} />
 			<Route path={keys.RKey_SubId} element={<ForumComponent />} />
 		</Routes> :
