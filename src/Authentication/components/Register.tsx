@@ -2,21 +2,42 @@ import React from 'react'
 import styles from "DebugTestDev.module.css"
 import { useNavigate } from 'react-router-dom'
 import { debug } from 'console'
+import { NKey_NavLogin } from 'GlobalConst'
 export default function Register() {
   
   const [firstName, setfirstName] = React.useState('')
   const [lastName, setlastName] = React.useState('')
-  const [Username, setUsername] = React.useState('')
+  const [username, setUsername] = React.useState('')
   const [Email, setEmail] = React.useState('')
   const [Password, setPassword] = React.useState('')
   const [ConfirmPassword, setConfirmPassword] = React.useState('')
 
+  const navigate = useNavigate();
 
   const handleSubmit = (event: React.SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault()
+    
+    var isValid = false
+
+    var passwordsMatch = Password === ConfirmPassword && Password !== ''
+    var firstNameFilled = firstName !== ''
+    var lastNameFilled = lastName !== ''
+    var usernameFilled = username !== ''
+    var emailFilled = Email !== ''
+    
+    if(firstNameFilled && lastNameFilled && usernameFilled && emailFilled && passwordsMatch){
+      isValid = true
+    }
+
     // Send Data Here
-    var jsonData = JSON.stringify({firstName: firstName, lastName: lastName, username: Username, email: Email, password: Password, confirmPassword: ConfirmPassword})
-    console.log(jsonData)
+    if(isValid){
+      var jsonData = JSON.stringify({firstName: firstName, lastName: lastName, username: username, email: Email, password: Password, confirmPassword: ConfirmPassword})
+      console.log(jsonData)
+
+    //redirect when done
+    navigate(NKey_NavLogin)
+    }
+
   } 
 
   return (
