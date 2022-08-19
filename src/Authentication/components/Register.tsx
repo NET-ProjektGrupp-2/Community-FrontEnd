@@ -24,10 +24,9 @@ export default function Register() {
     var lastNameFilled = lastName !== ''
     var usernameFilled = username !== ''
     var emailFilled = Email !== ''
+
+    isValid = firstNameFilled && lastNameFilled && usernameFilled && emailFilled && passwordsMatch
     
-    if(firstNameFilled && lastNameFilled && usernameFilled && emailFilled && passwordsMatch){
-      isValid = true
-    }
 
     // Send Data Here
     if(isValid){
