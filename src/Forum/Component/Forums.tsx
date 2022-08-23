@@ -1,11 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import { filterData, loadedForums } from 'App';
-import { Forum, GetPath } from 'Data/Forum';
 import ForumNavList from 'Navigation/components/ForumNavList';
 import ForumComponent from './ForumComponent';
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import * as keys from 'GlobalConst';
-import { LocationTracker, TrackLocation } from 'Navigation/components/LoadingResponse';
 
 
 // export const forumContextObject = {
@@ -74,7 +70,7 @@ export default function Forums() {
 	return (
 		//<forumContext.Provider value={state}>
 			<Routes>
-				<Route path="/" element={<ForumNavList forumId={0}/>} />
+				<Route path="/" element={<ForumNavList />} />
 				<Route path={keys.RKey_SubId} element={<ForumComponent />} />
 			</Routes>
 		//</forumContext.Provider>

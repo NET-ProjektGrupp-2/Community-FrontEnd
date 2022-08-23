@@ -5,22 +5,17 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { User } from './Data/User';
+import FetchService from 'Data/FetchService';
 
-export const sessionContext = React.createContext({
-	navState: "",
-	user: {} as User | undefined
-	
-});
+
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+	document.getElementById('root') as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-	<sessionContext.Provider value={{navState: "", user: undefined}}>
-    	<App />
-	</sessionContext.Provider>
-  </React.StrictMode>
+	<React.StrictMode>
+		<App />
+	</React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

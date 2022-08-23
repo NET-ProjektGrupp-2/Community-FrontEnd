@@ -2,52 +2,29 @@ import './App.css';
 import NavContainer from './Navigation/components/NavContainer';
 import RouterContainer from './Navigation/components/RouterContainer';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { Forum } from './Data/Forum';
-import { Topic } from './Data/Topic';
-import { Post } from './Data/Post';
+import DataStore, {  } from 'Data/DataStore';
+import React from 'react';
+import { User } from 'Data/User';
 
-export const loadedForums: {
-	[forumId: number]: Forum
-} = {} as const;
-export const loadedTopics: {
-	[topicId: number]: Topic
-} = {} as const;
-export const loadedPosts: {
-	[postId: number]: Post
-} = {} as const;
+export const sessionContext = React.createContext({
+	user: {} as User | undefined,
+	dataStore: new DataStore()
+});
 
 export default function App() {
-
-	loadedForums[1] = { Id: 1, Name: "First F", Description: "first", SubForumIds: [2] };
-	loadedForums[2] = { Id: 2, Name: "Second F", Description: "second", TopicIds: [1, 2, 3], ParentForumId: 1, SubForumIds: [3] };
-	loadedForums[3] = { Id: 3, Name: "Third F", Description: "third", ParentForumId: 2 };
-
-	loadedTopics[1] = { Id: 1, Title: "First T", CreationDate: Date.now(), AuthorId: "system", ForumId: 2 };
-	loadedTopics[2] = { Id: 2, Title: "Second T", CreationDate: Date.now(), AuthorId: "system", ForumId: 2, PostIds: [1,2,3]};
-	loadedTopics[3] = { Id: 3, Title: "Third T", CreationDate: Date.now(), AuthorId: "system", ForumId: 2 };
-
-	loadedPosts[1] = { Id: 1, PostDate: Date.now(), AuthorId: "system", Replies: [2, 3], TopicId: 2, Content: "Lorem ipsum" };
-	loadedPosts[2] = { Id: 2, PostDate: Date.now(), AuthorId: "system", ContextPostId: 1, TopicId: 2, Content: "Dolor" };
-	loadedPosts[3] = { Id: 3, PostDate: Date.now(), AuthorId: "system", ContextPostId: 2, TopicId: 2, Content: "Ichi, ni, san" };
-
+	const dataStore = new DataStore();
+	// dataStore.InitDummyData();
+	dataStore.Init();
+	
 	return (
 		<div className="App">
-			<Router >
-				<NavContainer />
-				<RouterContainer />
-			</Router>
+			<sessionContext.Provider value={{ user: undefined, dataStore}}>
+				<Router >
+					<NavContainer />
+					<RouterContainer />
+				</Router>
+			</sessionContext.Provider>
 		</div>
 	);
 }
 
-export function filterData<T = {}>(source: { [id: number]: T }, ids: number[] | null | undefined) {
-	if (!ids) {
-		return null;
-	}
-	let result = [] as T[];
-	ids.forEach(id => {
-		let x = source[id] as T;
-		result.push(x);
-	});
-	return result.length === 0 ? null : result;
-}

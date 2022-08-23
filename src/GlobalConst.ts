@@ -5,6 +5,7 @@
  * RKey_ : Routing keys
  * AKey_ : Authentication/Authorization keys
  */
+export const Settings_EntiresPerPage = 10;
 
 export const NKey_NavLogin = "/login";
 export const EKey_SubmitLogin = "login?";
@@ -33,3 +34,11 @@ export const EKey_PostsLoaded = "post_loading_complete";
 export const EKey_ArticlesLoaded = "article_loading_complete";
 
 export const AKey_ForumNotAuth = "You are not permitted to access this forum.";
+
+export const ApiPaths = {
+	baseApiUrl: 'https://localhost:7080',
+	getForums: 			'/api/forum',
+	getForumTopics: '/api/forum/get/',
+	getTopicPosts: 	'/api/forum/topics/get/',
+	// api_get
+};

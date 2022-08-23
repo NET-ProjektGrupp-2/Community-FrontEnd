@@ -1,5 +1,5 @@
 
-export type User = {
+export interface User {
 	
 	Id: string;
 	Email?: string;
@@ -15,6 +15,8 @@ export type User = {
 	Posts?: Int32List;
 	Articles?: Int32List;
 	RoleIds?: string[];
+
+	Token?: string;
 }
 function validate(user: User){
 	if (user.Id && user.DisplayName && user.CreationDate && user.RoleIds?.length) {

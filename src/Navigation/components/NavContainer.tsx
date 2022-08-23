@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Navbar, Container, Nav } from 'react-bootstrap';
-import { sessionContext } from '../../index';
+import { sessionContext } from 'App';
 import { HasRole } from '../../Authentication/Roles';
 import styles from '../css/NavContainer.module.css';
 import LoggedInNav from './LoggedInNav';

@@ -1,10 +1,10 @@
 import { Route, Routes } from "react-router-dom";
-import Login from '../../Authentication/components/Login';
-import Logout from '../../Authentication/components/Logout';
-import * as keys from '../../GlobalConst';
-import Register from '../../Authentication/components/Register';
+import Login from 'Authentication/components/Login';
+import Logout from 'Authentication/components/Logout';
+import * as keys from 'GlobalConst';
+import Register from 'Authentication/components/Register';
 import LoadingResponse from './LoadingResponse';
-import Forums from "../../Forum/Component/Forums";
+import Forums from "Forum/Component/Forums";
 import Home from "Home/Components/Home";
 
 function RouterContainer() {
